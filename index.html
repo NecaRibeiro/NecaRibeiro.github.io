@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guilherme Ribeiro</title>
-<meta name="description" content="Software Engineer — C# / .NET Backend · Cybersecurity & AI · IST Lisboa">
+<meta name="description" content="Computer Science Engineer — C# / .NET Backend · Cybersecurity & AI · IST Lisboa">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -480,7 +480,7 @@
   .timeline::before {
     content: '';
     position: absolute;
-    left: 110px;
+    left: 94px;
     top: 6px; bottom: 0;
     width: 1px;
     background: var(--border);
@@ -488,7 +488,7 @@
 
   .timeline-item {
     display: grid;
-    grid-template-columns: 110px 1fr;
+    grid-template-columns: 78px 1fr;
     gap: 2rem;
     position: relative;
     padding-bottom: 2.5rem;
@@ -498,7 +498,7 @@
   .timeline-item::after {
     content: '';
     position: absolute;
-    left: 106px;
+    left: 90px;
     top: 5px;
     width: 9px; height: 9px;
     border-radius: 50%;
@@ -607,9 +607,9 @@
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .about-stats { grid-template-columns: 1fr 1fr; }
     .project-card.featured { grid-column: span 1; }
-    .timeline::before { left: 76px; }
-    .timeline-item { grid-template-columns: 76px 1fr; gap: 1.25rem; }
-    .timeline-item::after { left: 72px; }
+    .timeline::before { left: 62px; }
+    .timeline-item { grid-template-columns: 48px 1fr; gap: 1.5rem; }
+    .timeline-item::after { left: 58px; }
     .timeline-date { font-size: 0.65rem; }
     section { padding: 3.5rem 1.25rem; }
     .footer-links { gap: 1rem; flex-direction: column; align-items: center; }
@@ -639,7 +639,7 @@
 <section id="hero">
   <canvas id="ecg-canvas" aria-hidden="true"></canvas>
   <div class="hero-content">
-    <div class="hero-label">// Software Engineer · IST Lisboa</div>
+    <div class="hero-label">// Computer Science Engineer · IST Lisboa</div>
     <h1 class="hero-name">Guilherme<br><span class="accent">Ribeiro</span></h1>
     <p class="hero-tagline">
       Building clinical AI systems and secure backend software.<br>
@@ -669,7 +669,7 @@
         <div class="section-label">About</div>
         <h2 class="section-title">Engineering at the intersection of AI, security, and clinical systems</h2>
         <p>I'm a Computer Science engineer from <strong>Instituto Superior Técnico (IST) Lisboa</strong>, completing an MSc specialised in <strong>Cybersecurity and Artificial Intelligence</strong> with a minor in Entrepreneurship &amp; Innovation.</p>
-        <p>As a Junior Developer at <strong>Infortucano SI</strong> I maintain CardioBase/TucMED — a clinical cardiology platform deployed across 20+ hospitals in Portugal. My MSc thesis extends this platform with a <strong>1D CNN trained on cardiologist-labelled ECG data</strong> to detect acute myocardial infarction.</p>
+        <p>As a Software Developer at <strong>Infortucano SI</strong> I maintain CardioBase/TucMED — a clinical cardiology platform deployed across 20+ hospitals in Portugal. My MSc thesis extends this platform with a <strong>1D CNN trained on cardiologist-labelled ECG data</strong> to detect acute myocardial infarction.</p>
         <p>I grew up in Johannesburg, attended <strong>Dainfern College</strong> (national-level swimmer, top mathematician), then moved to Lisbon for university. EU citizen, English C1 (IELTS), open to international opportunities.</p>
       </div>
       <div class="about-stats fade-in">
@@ -894,7 +894,7 @@
       <div class="timeline-item">
         <div class="timeline-date">Sep 2025<br>Present</div>
         <div class="timeline-body">
-          <div class="timeline-title">Junior Developer</div>
+          <div class="timeline-title">Software Developer</div>
           <div class="timeline-org">Infortucano SI · Lisbon, Portugal</div>
           <p class="timeline-desc">Developing and maintaining CardioBase/TucMED (C# WinForms), a clinical cardiology information system across 20+ hospitals — patient management from admission to discharge, ICU monitoring, scheduling, and HIS integrations (SONHO, Glintt). Built the DESPORT sports medicine module. Also developing dashboards and features for Ceramed/Gesprod (ASP.NET WebForms, SQL Server).</p>
         </div>
@@ -988,17 +988,16 @@
   let raf = null;
   let offset = 0;
 
-  // Normalized PQRST waveform points [x, y] where y=0.5 is baseline
   const wave = [
     [0.00, 0.50],[0.06, 0.50],
-    [0.09, 0.40],[0.12, 0.50], // P
+    [0.09, 0.40],[0.12, 0.50],
     [0.16, 0.50],
-    [0.19, 0.56], // Q dip
-    [0.21, 0.10], // R spike
-    [0.23, 0.68], // S dip
+    [0.19, 0.56],
+    [0.21, 0.10],
+    [0.23, 0.68],
     [0.26, 0.50],
     [0.33, 0.50],
-    [0.37, 0.39],[0.41, 0.33],[0.45, 0.50], // T wave
+    [0.37, 0.39],[0.41, 0.33],[0.45, 0.50],
     [0.56, 0.50],[1.00, 0.50],
   ];
 
@@ -1048,7 +1047,6 @@
     ctx.stroke();
     ctx.restore();
 
-    // Fade edges
     const fade = ctx.createLinearGradient(0, 0, w, 0);
     fade.addColorStop(0, 'rgba(0,0,0,0.85)');
     fade.addColorStop(0.12, 'rgba(0,0,0,0)');

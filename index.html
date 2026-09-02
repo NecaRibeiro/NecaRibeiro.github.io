@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guilherme Ribeiro</title>
+<meta name="description" content="Software Engineer — C# / .NET Backend · Cybersecurity & AI · IST Lisboa">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F9FF;
+    --surface: #FFFFFF;
+    --card: #EEF2FF;
+    --border: #CBD5E1;
+    --text: #0F172A;
+    --muted: #475569;
+    --accent: #2563EB;
+    --accent-soft: #DBEAFE;
+    --signal: #059669;
+    --signal-soft: rgba(5,150,105,0.12);
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #080C18;
+      --surface: #0F1628;
+      --card: #151F35;
+      --border: #1E2D45;
+      --text: #E2E8F0;
+      --muted: #94A3B8;
+      --accent: #60A5FA;
+      --accent-soft: #1E3A5F;
+      --signal: #34D399;
+      --signal-soft: rgba(52,211,153,0.12);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #080C18;
+    --surface: #0F1628;
+    --card: #151F35;
+    --border: #1E2D45;
+    --text: #E2E8F0;
+    --muted: #94A3B8;
+    --accent: #60A5FA;
+    --accent-soft: #1E3A5F;
+    --signal: #34D399;
+    --signal-soft: rgba(52,211,153,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border);
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    line-height: 1;
+  }
+  .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* HERO */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 6rem 2rem 5rem;
+  }
+
+  #ecg-canvas {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
+    height: 130px;
+    opacity: 0.65;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .hero-label {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--signal);
+    margin-bottom: 1rem;
+    letter-spacing: 0.06em;
+  }
+
+  .hero-name {
+    font-family: var(--font-mono);
+    font-size: clamp(2.8rem, 8.5vw, 5.8rem);
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: -0.045em;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    text-wrap: balance;
+  }
+  .hero-name .accent { color: var(--accent); }
+
+  .hero-tagline {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 1.75rem;
+    line-height: 1.75;
+  }
+
+  .hero-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .stack-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    padding: 0.22rem 0.6rem;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.7rem 1.4rem;
+    border-radius: 6px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border: 1px solid transparent;
+  }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn-primary:hover { opacity: 0.87; transform: translateY(-1px); }
+
+  .btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--signal);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .section-title {
+    font-family: var(--font-mono);
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 2.5rem;
+    text-wrap: balance;
+  }
+
+  /* ABOUT */
+  #about { background: var(--surface); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    margin-bottom: 1rem;
+    font-size: 0.975rem;
+    line-height: 1.8;
+  }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1rem;
+  }
+
+  .stat-num {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    display: block;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.03em;
+  }
+
+  .stat-label {
+    font-size: 0.775rem;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    line-height: 1.4;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1.75rem;
+  }
+
+  .skill-group h4 {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 0.7rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.45rem;
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+  .skill-tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text);
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 0.18rem 0.55rem;
+    border-radius: 4px;
+    transition: border-color 0.2s, color 0.2s;
+    cursor: default;
+  }
+  .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* PROJECTS */
+  #projects { background: var(--surface); }
+
+  .projects-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 2rem;
+  }
+
+  .filter-btn {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.28rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  }
+  .project-card:hover::before { transform: scaleX(1); }
+
+  .project-card.featured {
+    grid-column: span 2;
+    border-color: var(--signal);
+  }
+  .project-card.featured::before {
+    background: var(--signal);
+    transform: scaleX(1);
+  }
+
+  .project-area {
+    font-family: var(--font-mono);
+    font-size: 0.63rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--signal);
+    background: var(--signal-soft);
+    padding: 0.18rem 0.55rem;
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  .project-title {
+    font-family: var(--font-mono);
+    font-size: 0.975rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 0.858rem;
+    color: var(--muted);
+    line-height: 1.68;
+    flex: 1;
+  }
+
+  .project-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.15rem;
+  }
+
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.28rem; }
+
+  .project-tag {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0.13rem 0.45rem;
+    border-radius: 3px;
+  }
+
+  .project-status {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--signal);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    white-space: nowrap;
+  }
+
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--signal);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 110px;
+    top: 6px; bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 2rem;
+    position: relative;
+    padding-bottom: 2.5rem;
+  }
+  .timeline-item:last-child { padding-bottom: 0; }
+
+  .timeline-item::after {
+    content: '';
+    position: absolute;
+    left: 106px;
+    top: 5px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+
+  .timeline-date {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-align: right;
+    padding-top: 0.1rem;
+    line-height: 1.45;
+  }
+
+  .timeline-title {
+    font-family: var(--font-mono);
+    font-size: 0.975rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-org {
+    font-size: 0.845rem;
+    color: var(--accent);
+    margin-bottom: 0.55rem;
+    font-weight: 500;
+  }
+
+  .timeline-desc {
+    font-size: 0.858rem;
+    color: var(--muted);
+    line-height: 1.72;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 3.5rem 2rem;
+    text-align: center;
+  }
+
+  .footer-name {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+
+  .footer-sub {
+    color: var(--muted);
+    font-size: 0.875rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1.75rem 0 1rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-link {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-link:hover { color: var(--accent); }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--border);
+    margin-top: 1.5rem;
+    font-family: var(--font-mono);
+  }
+
+  /* FADE IN */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in { opacity: 1; transform: none; transition: none; }
+    .status-dot { animation: none; }
+    * { animation-duration: 0.01ms !important; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 0.875rem 1.25rem; }
+    .nav-links { display: none; }
+    #hero { padding: 5rem 1.25rem 4rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .project-card.featured { grid-column: span 1; }
+    .timeline::before { left: 76px; }
+    .timeline-item { grid-template-columns: 76px 1fr; gap: 1.25rem; }
+    .timeline-item::after { left: 72px; }
+    .timeline-date { font-size: 0.65rem; }
+    section { padding: 3.5rem 1.25rem; }
+    .footer-links { gap: 1rem; flex-direction: column; align-items: center; }
+  }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">GR<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#education">education</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle colour theme">◐</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="ecg-canvas" aria-hidden="true"></canvas>
+  <div class="hero-content">
+    <div class="hero-label">// Software Engineer · IST Lisboa</div>
+    <h1 class="hero-name">Guilherme<br><span class="accent">Ribeiro</span></h1>
+    <p class="hero-tagline">
+      Building clinical AI systems and secure backend software.<br>
+      BSc CS Engineering from IST · MSc Cybersecurity &amp; AI (in progress).
+    </p>
+    <div class="hero-stack">
+      <span class="stack-tag">C# / .NET</span>
+      <span class="stack-tag">Python · ML</span>
+      <span class="stack-tag">Cybersecurity</span>
+      <span class="stack-tag">Distributed Systems</span>
+      <span class="stack-tag">SQL Server</span>
+      <span class="stack-tag">React</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary">View Projects →</a>
+      <a href="https://github.com/NecaRibeiro" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+      <a href="https://linkedin.com/in/guilherme-neca-ribeiro-38577a263" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <div class="section-label">About</div>
+        <h2 class="section-title">Engineering at the intersection of AI, security, and clinical systems</h2>
+        <p>I'm a Computer Science engineer from <strong>Instituto Superior Técnico (IST) Lisboa</strong>, completing an MSc specialised in <strong>Cybersecurity and Artificial Intelligence</strong> with a minor in Entrepreneurship &amp; Innovation.</p>
+        <p>As a Junior Developer at <strong>Infortucano SI</strong> I maintain CardioBase/TucMED — a clinical cardiology platform deployed across 20+ hospitals in Portugal. My MSc thesis extends this platform with a <strong>1D CNN trained on cardiologist-labelled ECG data</strong> to detect acute myocardial infarction.</p>
+        <p>I grew up in Johannesburg, attended <strong>Dainfern College</strong> (national-level swimmer, top mathematician), then moved to Lisbon for university. EU citizen, English C1 (IELTS), open to international opportunities.</p>
+      </div>
+      <div class="about-stats fade-in">
+        <div class="stat-card">
+          <span class="stat-num">20+</span>
+          <span class="stat-label">hospitals using<br>CardioBase</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">4yr</span>
+          <span class="stat-label">BSc at IST<br>2021 – 2025</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">C1</span>
+          <span class="stat-label">English IELTS<br>Academic</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">7+</span>
+          <span class="stat-label">languages &amp;<br>frameworks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">Technical Skills</div>
+    <h2 class="section-title">Stack</h2>
+    <div class="skills-grid fade-in">
+      <div class="skill-group">
+        <h4>Primary Languages</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">C#</span><span class="skill-tag">Python</span><span class="skill-tag">Java</span>
+          <span class="skill-tag">C</span><span class="skill-tag">JavaScript</span><span class="skill-tag">TypeScript</span><span class="skill-tag">SQL</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Frameworks</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">ASP.NET</span><span class="skill-tag">WinForms</span><span class="skill-tag">React</span>
+          <span class="skill-tag">Node.js</span><span class="skill-tag">Android</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>AI / ML</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">PyTorch</span><span class="skill-tag">1D CNN</span><span class="skill-tag">scikit-learn</span>
+          <span class="skill-tag">NumPy</span><span class="skill-tag">Multi-Agent Systems</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Security</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">OWASP Top 10</span><span class="skill-tag">Secure SDLC</span>
+          <span class="skill-tag">Cryptography</span><span class="skill-tag">OAuth / OIDC</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Databases</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">SQL Server</span><span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">Stored Procedures</span><span class="skill-tag">Query Optimisation</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Other</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Git</span><span class="skill-tag">C++</span><span class="skill-tag">Assembly</span>
+          <span class="skill-tag">Prolog</span><span class="skill-tag">R</span><span class="skill-tag">Agile / Scrum</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">Academic &amp; Personal Projects</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-filter fade-in">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="ai">AI / ML</button>
+      <button class="filter-btn" data-filter="security">Security</button>
+      <button class="filter-btn" data-filter="distributed">Distributed</button>
+      <button class="filter-btn" data-filter="systems">Systems</button>
+      <button class="filter-btn" data-filter="other">Other</button>
+    </div>
+    <div class="projects-grid" id="projectsGrid">
+
+      <div class="project-card featured fade-in" data-category="ai">
+        <div><span class="project-area">AI · MSc Thesis · 2025–Present</span></div>
+        <div class="project-title">CardioBase ECG Diagnostics AI</div>
+        <p class="project-desc">A 1D Convolutional Neural Network trained on cardiologist-classified ECG datasets to detect acute myocardial infarction (AMI) — the second leading cause of death in Portugal. The model integrates directly into CardioBase, deployed across 20+ hospitals, aiming to assist diagnosis in facilities without on-call cardiologists. Handling the full ML pipeline: dataset curation, patient data anonymisation, model training, fine-tuning, and evaluation using sensitivity (recall) and F1 score to minimise false negatives.</p>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="project-tag">Python</span><span class="project-tag">PyTorch</span><span class="project-tag">1D CNN</span>
+            <span class="project-tag">C#</span><span class="project-tag">Clinical AI</span>
+          </div>
+          <div class="project-status"><span class="status-dot"></span>In Progress</div>
+        </div>
+      </div>
+
+      <div class="project-card fade-in" data-category="distributed security">
+        <div><span class="project-area">Security · HDS</span></div>
+        <div class="project-title">DepChain</div>
+        <p class="project-desc">Designed and implemented a dependable distributed ledger with Byzantine fault-tolerant consensus. The system tolerates malicious replicas while maintaining correctness, covering leader election, view changes, and authenticated message channels.</p>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="project-tag">Java</span><span class="project-tag">BFT Consensus</span>
+            <span class="project-tag">Distributed</span><span class="project-tag">Blockchain</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card fade-in" data-category="ai">
+        <div><span class="project-area">AI · Multi-Agent · AASMA</span></div>
+        <div class="project-title">Multi-Agent System — AASMA</div>
+        <p class="project-desc">Built a multi-agent simulation for the Autonomous Agents and Multi-Agent Systems course. Agents operate in a shared environment with coordination, negotiation, and emergent collective behaviour. Results presented at the AAMAS 2026 project showcase.</p>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="project-tag">Python</span><span class="project-tag">Multi-Agent</span><span class="project-tag">Game Theory</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card fade-in" data-category="security">
+        <div><span class="project-area">Cybersecurity · CSF</span></div>
+        <div class="project-title">Cyber Security Fundamentals Labs</div>
+        <p class="project-desc">Three-part lab series covering network security, application security, and cryptographic protocols. Practical exercises in vulnerability assessment, secure protocol design, and defensive tooling as part of the MSc cybersecurity curriculum.</p>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="project-tag">Security</span><span class="project-tag">Cryptography</span>
+            <span class="project-tag">Network</span><span class="project-tag">AppSec</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card fade-in" data-category="distributed">
+        <div><span class="project-area">Distributed · PADI</span></div>
+        <div class="project-title">Distributed Applications — PADI</div>
+        <p class="project-desc">Four-stage project for Distributed Applications Design and Implementation: progressively built a service from single-node to multi-replica with fault tolerance, replication protocols, and strong consistency guarantees.</p>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="project-tag">Java</span><span class="project-tag">Replication</span>
+            <span class="project-tag">Fault Tolerance</span><span class="project-tag">Consistency</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card fade-in" data-category="systems">
+        <div><span class="project-area">Systems · SO</span></div>
+        <div class="project-title">Operating Systems Projects</div>
+        <p class="project-desc">Two OS project cycles (2022–23, 2024–25): process management, memory allocation, IPC, and kernel-level C programming. Implemented schedulers, virtual memory systems, and synchronisation primitives under real constraints.</p>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="project-tag">C</span><span class="project-tag">POSIX</span>
+            <span class="project-tag">Concurrency</span><span class="project-tag">IPC</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card fade-in" data-category="systems">
+        <div><span class="project-area">Algorithms · ASA</span></div>
+        <div class="project-title">Analysis &amp; Synthesis of Algorithms</div>
+        <p class="project-desc">Two algorithm design projects covering graph theory, dynamic programming, and complexity analysis. Implemented efficient solutions with formal complexity proofs, stress-tested against large adversarial datasets.</p>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="project-tag">C/C++</span><span class="project-tag">Graph Theory</span>
+            <span class="project-tag">Dynamic Programming</span><span class="project-tag">Complexity</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card fade-in" data-category="other">
+        <div><span class="project-area">Data · BD</span></div>
+        <div class="project-title">Relational Database Design</div>
+        <p class="project-desc">Three-part Databases coursework: ER modelling, schema normalisation, SQL query design, stored procedures, triggers, and performance optimisation. Full database lifecycle from requirements to deployment.</p>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="project-tag">SQL</span><span class="project-tag">PostgreSQL</span>
+            <span class="project-tag">ER Modelling</span><span class="project-tag">Normalisation</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card fade-in" data-category="other">
+        <div><span class="project-area">HCI · IPM</span></div>
+        <div class="project-title">Human-Computer Interaction Design</div>
+        <p class="project-desc">Designed and user-tested a complete application interface — user research, iterative wireframing, usability testing, and a hi-fi Figma prototype evaluated against Nielsen heuristics and accessibility guidelines.</p>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="project-tag">Figma</span><span class="project-tag">UX Research</span>
+            <span class="project-tag">Usability Testing</span><span class="project-tag">Accessibility</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card fade-in" data-category="other">
+        <div><span class="project-area">Entrepreneurship · Innovation Minor</span></div>
+        <div class="project-title">Design Thinking — Innovation Project</div>
+        <p class="project-desc">Full innovation sprint applying Design Thinking methodology: user empathy research, ideation, prototype development, and a Hotelling competitive model for market positioning. Part of the Entrepreneurship &amp; Innovation minor at IST.</p>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="project-tag">Design Thinking</span><span class="project-tag">UX Research</span>
+            <span class="project-tag">Game Theory</span><span class="project-tag">Innovation</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title">Work History</h2>
+    <div class="timeline fade-in">
+      <div class="timeline-item">
+        <div class="timeline-date">Sep 2025<br>Present</div>
+        <div class="timeline-body">
+          <div class="timeline-title">Junior Developer</div>
+          <div class="timeline-org">Infortucano SI · Lisbon, Portugal</div>
+          <p class="timeline-desc">Developing and maintaining CardioBase/TucMED (C# WinForms), a clinical cardiology information system across 20+ hospitals — patient management from admission to discharge, ICU monitoring, scheduling, and HIS integrations (SONHO, Glintt). Built the DESPORT sports medicine module. Also developing dashboards and features for Ceramed/Gesprod (ASP.NET WebForms, SQL Server).</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Feb 2025<br>Apr 2025</div>
+        <div class="timeline-body">
+          <div class="timeline-title">Programmer Analyst — Internship</div>
+          <div class="timeline-org">Proef · Porto, Portugal</div>
+          <p class="timeline-desc">Internal tooling and process automation in the IT department. Practical exposure to enterprise software workflows and cross-team collaboration in an Agile environment.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2017 &amp; 2019</div>
+        <div class="timeline-body">
+          <div class="timeline-title">IT Job-Shadowing Placements</div>
+          <div class="timeline-org">Praekelt.org / Discovery Limited · Johannesburg, South Africa</div>
+          <p class="timeline-desc">Front-end development at Praekelt.org (Reach Digital Health): HTML, CSS, JS for health web apps. Systems analysis at Discovery Limited IT: enterprise infrastructure and operations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="background:var(--surface)">
+  <div class="container">
+    <div class="section-label">Education</div>
+    <h2 class="section-title">Academic Background</h2>
+    <div class="timeline fade-in">
+      <div class="timeline-item">
+        <div class="timeline-date">2025<br>Present</div>
+        <div class="timeline-body">
+          <div class="timeline-title">MSc in Computer Science Engineering</div>
+          <div class="timeline-org">Instituto Superior Técnico de Lisboa (IST)</div>
+          <p class="timeline-desc">Major: Cybersecurity &amp; Artificial Intelligence · Minor: Entrepreneurship &amp; Innovation<br>Thesis: CardioBase ECG Diagnostics AI — 1D CNN integrated into a live cardiology system for AMI detection.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2021<br>2025</div>
+        <div class="timeline-body">
+          <div class="timeline-title">BSc in Computer Science Engineering</div>
+          <div class="timeline-org">Instituto Superior Técnico de Lisboa (IST)</div>
+          <p class="timeline-desc">Full degree covering algorithms, operating systems, databases, distributed computing, AI, software engineering, and HCI.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2016<br>2020</div>
+        <div class="timeline-body">
+          <div class="timeline-title">South African National Senior Certificate</div>
+          <div class="timeline-org">Dainfern College · Johannesburg, South Africa</div>
+          <p class="timeline-desc">Principal's Commendation · Certificate of Excellence (80%+ average) · Grade 12 Sigma Trophy — Top Senior Mathematician · Full Colours — National Swimming Team</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / FOOTER -->
+<footer id="contact">
+  <div class="footer-name">Guilherme Ribeiro</div>
+  <p class="footer-sub">Open to backend · AI/ML · Cybersecurity roles · EU citizen · Remote &amp; relocation welcome</p>
+  <div class="footer-links">
+    <a href="mailto:guilherme.neca.ribeiro@hotmail.com" class="footer-link">guilherme.neca.ribeiro@hotmail.com</a>
+    <a href="https://github.com/NecaRibeiro" target="_blank" rel="noopener" class="footer-link">github.com/NecaRibeiro</a>
+    <a href="https://linkedin.com/in/guilherme-neca-ribeiro-38577a263" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+    <a href="tel:+351913255818" class="footer-link">+351 913 255 818</a>
+  </div>
+  <p class="footer-copy">Built with HTML · Hosted free on GitHub Pages · 2026</p>
+</footer>
+
+<script>
+  // Theme toggle
+  const toggleBtn = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  try {
+    const saved = localStorage.getItem('theme');
+    if (saved) root.setAttribute('data-theme', saved);
+  } catch(e) {}
+
+  toggleBtn.addEventListener('click', () => {
+    const cur = root.getAttribute('data-theme');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch(e) {}
+  });
+
+  // ECG Canvas
+  const canvas = document.getElementById('ecg-canvas');
+  const ctx = canvas.getContext('2d');
+  let raf = null;
+  let offset = 0;
+
+  // Normalized PQRST waveform points [x, y] where y=0.5 is baseline
+  const wave = [
+    [0.00, 0.50],[0.06, 0.50],
+    [0.09, 0.40],[0.12, 0.50], // P
+    [0.16, 0.50],
+    [0.19, 0.56], // Q dip
+    [0.21, 0.10], // R spike
+    [0.23, 0.68], // S dip
+    [0.26, 0.50],
+    [0.33, 0.50],
+    [0.37, 0.39],[0.41, 0.33],[0.45, 0.50], // T wave
+    [0.56, 0.50],[1.00, 0.50],
+  ];
+
+  function getToken(name) {
+    return getComputedStyle(root).getPropertyValue(name).trim();
+  }
+
+  function resizeCanvas() {
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = canvas.offsetWidth * dpr;
+    canvas.height = canvas.offsetHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function drawFrame() {
+    const w = canvas.offsetWidth;
+    const h = canvas.offsetHeight;
+    if (!w || !h) return;
+
+    ctx.clearRect(0, 0, w, h);
+
+    const signalColor = getToken('--signal');
+    const cycleW = w * 0.52;
+    const numCycles = Math.ceil(w / cycleW) + 2;
+
+    const pts = [];
+    for (let c = -1; c < numCycles; c++) {
+      for (const [nx, ny] of wave) {
+        pts.push([
+          c * cycleW + nx * cycleW - (offset % cycleW),
+          h * 0.5 + (ny - 0.5) * h * 0.72
+        ]);
+      }
+    }
+
+    ctx.save();
+    ctx.shadowColor = signalColor;
+    ctx.shadowBlur = 10;
+    ctx.strokeStyle = signalColor;
+    ctx.lineWidth = 1.6;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.stroke();
+    ctx.restore();
+
+    // Fade edges
+    const fade = ctx.createLinearGradient(0, 0, w, 0);
+    fade.addColorStop(0, 'rgba(0,0,0,0.85)');
+    fade.addColorStop(0.12, 'rgba(0,0,0,0)');
+    fade.addColorStop(0.88, 'rgba(0,0,0,0)');
+    fade.addColorStop(1, 'rgba(0,0,0,0.85)');
+    ctx.save();
+    ctx.globalCompositeOperation = 'destination-in';
+    ctx.fillStyle = fade;
+    ctx.fillRect(0, 0, w, h);
+    ctx.restore();
+  }
+
+  function tick() {
+    offset += 0.7;
+    resizeCanvas();
+    drawFrame();
+    raf = requestAnimationFrame(tick);
+  }
+
+  const io = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) { if (!raf) tick(); }
+    else { cancelAnimationFrame(raf); raf = null; }
+  });
+  io.observe(canvas);
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+  tick();
+
+  // Project filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.project-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      cards.forEach(c => {
+        c.style.display = (f === 'all' || c.dataset.category.split(' ').includes(f)) ? '' : 'none';
+      });
+    });
+  });
+
+  // Scroll fade-in
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const fadeObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); fadeObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  fadeEls.forEach(el => fadeObs.observe(el));
+</script>
+</body>
+</html>

@@ -618,6 +618,49 @@
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  .project-link-wrap { text-decoration: none; color: inherit; display: block; }
+  .badge-private {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.42rem;
+    border-radius: 3px;
+    vertical-align: middle;
+    margin-left: 0.35rem;
+  }
+  .project-link-badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    white-space: nowrap;
+    opacity: 0.65;
+    transition: opacity 0.2s;
+  }
+  .project-link-wrap:hover .project-link-badge { opacity: 1; }
+  .projects-subhead {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .course-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .course-chip {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 0.28rem 0.7rem;
+    border-radius: 20px;
+  }
+  .course-chip .grade { color: var(--accent); font-weight: 600; }
 </style>
 </head>
 <body>
@@ -757,14 +800,16 @@
       <button class="filter-btn" data-filter="security">Security</button>
       <button class="filter-btn" data-filter="distributed">Distributed</button>
       <button class="filter-btn" data-filter="systems">Systems</button>
+      <button class="filter-btn" data-filter="web">Web</button>
       <button class="filter-btn" data-filter="other">Other</button>
     </div>
     <div class="projects-grid" id="projectsGrid">
 
+      <!-- PRIVATE / COMMERCIAL -->
       <div class="project-card featured fade-in" data-category="ai">
-        <div><span class="project-area">AI · MSc Thesis · 2025–Present</span></div>
+        <div><span class="project-area">AI · MSc Thesis · 2025–Present</span> <span class="badge-private">🔒 private</span></div>
         <div class="project-title">CardioBase ECG Diagnostics AI</div>
-        <p class="project-desc">A 1D Convolutional Neural Network trained on cardiologist-classified ECG datasets to detect acute myocardial infarction (AMI) — the second leading cause of death in Portugal. The model integrates directly into CardioBase, deployed across 20+ hospitals, aiming to assist diagnosis in facilities without on-call cardiologists. Handling the full ML pipeline: dataset curation, patient data anonymisation, model training, fine-tuning, and evaluation using sensitivity (recall) and F1 score to minimise false negatives.</p>
+        <p class="project-desc">A 1D Convolutional Neural Network trained on cardiologist-classified ECG datasets to detect acute myocardial infarction (AMI) — the second leading cause of death in Portugal. Integrates directly into CardioBase, deployed across 20+ hospitals, assisting diagnosis in facilities without on-call cardiologists. Full ML pipeline: dataset curation, patient data anonymisation, model training, fine-tuning, and evaluation optimised for sensitivity (recall) to minimise false negatives.</p>
         <div class="project-footer">
           <div class="project-tags">
             <span class="project-tag">Python</span><span class="project-tag">PyTorch</span><span class="project-tag">1D CNN</span>
@@ -774,113 +819,261 @@
         </div>
       </div>
 
-      <div class="project-card fade-in" data-category="distributed security">
-        <div><span class="project-area">Security · HDS</span></div>
-        <div class="project-title">DepChain</div>
-        <p class="project-desc">Designed and implemented a dependable distributed ledger with Byzantine fault-tolerant consensus. The system tolerates malicious replicas while maintaining correctness, covering leader election, view changes, and authenticated message channels.</p>
+      <div class="project-card fade-in" data-category="web">
+        <div><span class="project-area">Web · Full-Stack · E-Commerce</span> <span class="badge-private">🔒 private</span></div>
+        <div class="project-title">SousaMóveis</div>
+        <p class="project-desc">Full-stack institutional site and e-commerce store for a Portuguese furniture and mattress company. 40 products imported from PDF catalogue, persistent cart, Stripe checkout, customer area with order history, and multilingual support (PT/EN/FR) built from scratch with Sanity-based translations.</p>
         <div class="project-footer">
           <div class="project-tags">
-            <span class="project-tag">Java</span><span class="project-tag">BFT Consensus</span>
-            <span class="project-tag">Distributed</span><span class="project-tag">Blockchain</span>
+            <span class="project-tag">Next.js 16</span><span class="project-tag">TypeScript</span>
+            <span class="project-tag">Sanity CMS</span><span class="project-tag">Supabase</span><span class="project-tag">Stripe</span>
           </div>
+          <div class="project-status"><span class="status-dot"></span>Active dev</div>
         </div>
       </div>
 
-      <div class="project-card fade-in" data-category="ai">
-        <div><span class="project-area">AI · Multi-Agent · AASMA</span></div>
-        <div class="project-title">Multi-Agent System — AASMA</div>
-        <p class="project-desc">Built a multi-agent simulation for the Autonomous Agents and Multi-Agent Systems course. Agents operate in a shared environment with coordination, negotiation, and emergent collective behaviour. Results presented at the AAMAS 2026 project showcase.</p>
+      <div class="project-card fade-in" data-category="web">
+        <div><span class="project-area">Web · Startup Prototype</span> <span class="badge-private">🔒 private</span></div>
+        <div class="project-title">VoltReserve</div>
+        <p class="project-desc">EV charging reservation platform for Portugal using real-time OpenChargeMap API data. Drivers can find, reserve, and manage public charging sessions. Currently a prototype seeking partnership with EV charging operators.</p>
         <div class="project-footer">
           <div class="project-tags">
-            <span class="project-tag">Python</span><span class="project-tag">Multi-Agent</span><span class="project-tag">Game Theory</span>
+            <span class="project-tag">React</span><span class="project-tag">Supabase</span>
+            <span class="project-tag">OpenChargeMap API</span><span class="project-tag">TypeScript</span>
           </div>
+          <div class="project-status"><span class="status-dot"></span>Prototype</div>
         </div>
       </div>
 
-      <div class="project-card fade-in" data-category="security">
-        <div><span class="project-area">Cybersecurity · CSF</span></div>
-        <div class="project-title">Cyber Security Fundamentals Labs</div>
-        <p class="project-desc">Three-part lab series covering network security, application security, and cryptographic protocols. Practical exercises in vulnerability assessment, secure protocol design, and defensive tooling as part of the MSc cybersecurity curriculum.</p>
-        <div class="project-footer">
-          <div class="project-tags">
-            <span class="project-tag">Security</span><span class="project-tag">Cryptography</span>
-            <span class="project-tag">Network</span><span class="project-tag">AppSec</span>
+      <!-- ACADEMIC — with GitHub repos -->
+      <a href="https://github.com/NecaRibeiro/ist-sec-depchain" target="_blank" rel="noopener" class="project-link-wrap" data-category="distributed security">
+        <div class="project-card fade-in">
+          <div><span class="project-area">Security · Distributed · HDS</span></div>
+          <div class="project-title">DepChain — BFT Blockchain</div>
+          <p class="project-desc">Byzantine fault-tolerant permissioned blockchain built from scratch with the HotStuff consensus protocol. Tolerates 1 malicious replica (f=1, n=3f+1) with authenticated perfect links, Besu EVM integration, an ERC-20 IST token, and a full interactive client REPL.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="project-tag">Java</span><span class="project-tag">HotStuff BFT</span>
+              <span class="project-tag">Besu EVM</span><span class="project-tag">ERC-20</span>
+            </div>
+            <span class="project-link-badge">↗ GitHub</span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="project-card fade-in" data-category="distributed">
-        <div><span class="project-area">Distributed · PADI</span></div>
-        <div class="project-title">Distributed Applications — PADI</div>
-        <p class="project-desc">Four-stage project for Distributed Applications Design and Implementation: progressively built a service from single-node to multi-replica with fault tolerance, replication protocols, and strong consistency guarantees.</p>
-        <div class="project-footer">
-          <div class="project-tags">
-            <span class="project-tag">Java</span><span class="project-tag">Replication</span>
-            <span class="project-tag">Fault Tolerance</span><span class="project-tag">Consistency</span>
+      <a href="https://github.com/NecaRibeiro/ist-aasma" target="_blank" rel="noopener" class="project-link-wrap" data-category="ai">
+        <div class="project-card fade-in">
+          <div><span class="project-area">AI · Multi-Agent · AASMA</span></div>
+          <div class="project-title">Spatial Competition — Hotelling's Law</div>
+          <p class="project-desc">Multi-agent market simulation reproducing and extending Hotelling's Law. Store agents use Random, Hill-Climbing, and Q-Learning strategies in 1D and 2D markets. Includes Price of Anarchy analysis, Voronoi partitioning, and animated visualisations. Grade: 18.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="project-tag">Python</span><span class="project-tag">Q-Learning</span>
+              <span class="project-tag">Game Theory</span><span class="project-tag">NumPy</span>
+            </div>
+            <span class="project-link-badge">↗ GitHub</span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="project-card fade-in" data-category="systems">
-        <div><span class="project-area">Systems · SO</span></div>
-        <div class="project-title">Operating Systems Projects</div>
-        <p class="project-desc">Two OS project cycles (2022–23, 2024–25): process management, memory allocation, IPC, and kernel-level C programming. Implemented schedulers, virtual memory systems, and synchronisation primitives under real constraints.</p>
-        <div class="project-footer">
-          <div class="project-tags">
-            <span class="project-tag">C</span><span class="project-tag">POSIX</span>
-            <span class="project-tag">Concurrency</span><span class="project-tag">IPC</span>
+      <a href="https://github.com/NecaRibeiro/ist-dl" target="_blank" rel="noopener" class="project-link-wrap" data-category="ai">
+        <div class="project-card fade-in">
+          <div><span class="project-area">AI · Deep Learning · DL</span></div>
+          <div class="project-title">Deep Learning — FFN, CNN &amp; LSTM</div>
+          <p class="project-desc">HW1: logistic regression, perceptron, MLP, and FFN depth studies on EMNIST letters. HW2: CNN for image classification and LSTM with attention mechanism for sequence modelling. Grade: 18.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="project-tag">Python</span><span class="project-tag">PyTorch</span>
+              <span class="project-tag">CNN</span><span class="project-tag">LSTM</span><span class="project-tag">Attention</span>
+            </div>
+            <span class="project-link-badge">↗ GitHub</span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="project-card fade-in" data-category="systems">
-        <div><span class="project-area">Algorithms · ASA</span></div>
-        <div class="project-title">Analysis &amp; Synthesis of Algorithms</div>
-        <p class="project-desc">Two algorithm design projects covering graph theory, dynamic programming, and complexity analysis. Implemented efficient solutions with formal complexity proofs, stress-tested against large adversarial datasets.</p>
-        <div class="project-footer">
-          <div class="project-tags">
-            <span class="project-tag">C/C++</span><span class="project-tag">Graph Theory</span>
-            <span class="project-tag">Dynamic Programming</span><span class="project-tag">Complexity</span>
+      <a href="https://github.com/NecaRibeiro/ist-csf" target="_blank" rel="noopener" class="project-link-wrap" data-category="security">
+        <div class="project-card fade-in">
+          <div><span class="project-area">Security · Forensics · CSF</span></div>
+          <div class="project-title">Cybersecurity Forensics Labs</div>
+          <p class="project-desc">Three hands-on forensics labs: network traffic capture analysis (Wireshark/pcap), IRC stream extraction and chat reconstruction, phishing page identification, email header forensics, and digital artefact recovery with full timeline reports. Grade: 16.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="project-tag">Network Forensics</span><span class="project-tag">Wireshark</span>
+              <span class="project-tag">IRC Analysis</span><span class="project-tag">OSINT</span>
+            </div>
+            <span class="project-link-badge">↗ GitHub</span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="project-card fade-in" data-category="other">
-        <div><span class="project-area">Data · BD</span></div>
-        <div class="project-title">Relational Database Design</div>
-        <p class="project-desc">Three-part Databases coursework: ER modelling, schema normalisation, SQL query design, stored procedures, triggers, and performance optimisation. Full database lifecycle from requirements to deployment.</p>
-        <div class="project-footer">
-          <div class="project-tags">
-            <span class="project-tag">SQL</span><span class="project-tag">PostgreSQL</span>
-            <span class="project-tag">ER Modelling</span><span class="project-tag">Normalisation</span>
+      <a href="https://github.com/NecaRibeiro/ist-padi" target="_blank" rel="noopener" class="project-link-wrap" data-category="distributed">
+        <div class="project-card fade-in">
+          <div><span class="project-area">Distributed · PADI</span></div>
+          <div class="project-title">Distributed Applications — PADI</div>
+          <p class="project-desc">Labs and projects covering distributed systems fundamentals: RPC and gRPC, fault-tolerant replication, consistency models, distributed state machines, and leader election protocols. Python and Java implementations with Jupyter notebooks.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="project-tag">Python</span><span class="project-tag">Java</span>
+              <span class="project-tag">gRPC</span><span class="project-tag">Fault Tolerance</span>
+            </div>
+            <span class="project-link-badge">↗ GitHub</span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="project-card fade-in" data-category="other">
-        <div><span class="project-area">HCI · IPM</span></div>
-        <div class="project-title">Human-Computer Interaction Design</div>
-        <p class="project-desc">Designed and user-tested a complete application interface — user research, iterative wireframing, usability testing, and a hi-fi Figma prototype evaluated against Nielsen heuristics and accessibility guidelines.</p>
-        <div class="project-footer">
-          <div class="project-tags">
-            <span class="project-tag">Figma</span><span class="project-tag">UX Research</span>
-            <span class="project-tag">Usability Testing</span><span class="project-tag">Accessibility</span>
+      <a href="https://github.com/NecaRibeiro/ist-so" target="_blank" rel="noopener" class="project-link-wrap" data-category="systems">
+        <div class="project-card fade-in">
+          <div><span class="project-area">Systems · Operating Systems · SO</span></div>
+          <div class="project-title">Operating Systems — KVS &amp; Client-Server</div>
+          <p class="project-desc">P1: concurrent in-memory key-value store in C with mutex-protected hash table and custom command parser. P2: extends to a full client-server architecture with Unix domain sockets and multiple concurrent clients.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="project-tag">C</span><span class="project-tag">POSIX</span>
+              <span class="project-tag">pthreads</span><span class="project-tag">Unix sockets</span>
+            </div>
+            <span class="project-link-badge">↗ GitHub</span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="project-card fade-in" data-category="other">
-        <div><span class="project-area">Entrepreneurship · Innovation Minor</span></div>
-        <div class="project-title">Design Thinking — Innovation Project</div>
-        <p class="project-desc">Full innovation sprint applying Design Thinking methodology: user empathy research, ideation, prototype development, and a Hotelling competitive model for market positioning. Part of the Entrepreneurship &amp; Innovation minor at IST.</p>
-        <div class="project-footer">
-          <div class="project-tags">
-            <span class="project-tag">Design Thinking</span><span class="project-tag">UX Research</span>
-            <span class="project-tag">Game Theory</span><span class="project-tag">Innovation</span>
+      <a href="https://github.com/NecaRibeiro/ist-iac" target="_blank" rel="noopener" class="project-link-wrap" data-category="systems">
+        <div class="project-card fade-in">
+          <div><span class="project-area">Systems · Architecture · IAC</span></div>
+          <div class="project-title">Computer Architecture — x86 Space Shooter</div>
+          <p class="project-desc">Retro space-shooter game written entirely in x86 Assembly, running on the BIOS layer. Direct hardware programming: video memory sprite rendering, keyboard interrupts (Int 09h/16h), PC speaker sound effects, and multiple game states including pause and game over.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="project-tag">x86 Assembly</span><span class="project-tag">BIOS</span>
+              <span class="project-tag">Falstad</span><span class="project-tag">Hardware</span>
+            </div>
+            <span class="project-link-badge">↗ GitHub</span>
           </div>
         </div>
-      </div>
+      </a>
 
+      <a href="https://github.com/NecaRibeiro/ist-iaed" target="_blank" rel="noopener" class="project-link-wrap" data-category="systems">
+        <div class="project-card fade-in">
+          <div><span class="project-area">Algorithms · IAED</span></div>
+          <div class="project-title">Algorithms &amp; Data Structures</div>
+          <p class="project-desc">Data structure and algorithm implementation in C: efficient design, memory management, and algorithmic correctness without external libraries. Standard C only, compiled with strict warnings.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="project-tag">C</span><span class="project-tag">Data Structures</span>
+              <span class="project-tag">Memory Management</span>
+            </div>
+            <span class="project-link-badge">↗ GitHub</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://github.com/NecaRibeiro/ist-bd" target="_blank" rel="noopener" class="project-link-wrap" data-category="other">
+        <div class="project-card fade-in">
+          <div><span class="project-area">Data · Databases · BD</span></div>
+          <div class="project-title">Relational Database — Online Business Shop</div>
+          <p class="project-desc">Full database lifecycle: ER modelling, schema normalisation, SQL queries, integrity constraints (triggers), views, analytics, and a CGI web front-end for a marketplace managing clients, products, suppliers, orders, and payments.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="project-tag">PostgreSQL</span><span class="project-tag">SQL</span>
+              <span class="project-tag">CGI</span><span class="project-tag">ER Modelling</span>
+            </div>
+            <span class="project-link-badge">↗ GitHub</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://github.com/NecaRibeiro/ist-ipm" target="_blank" rel="noopener" class="project-link-wrap" data-category="other">
+        <div class="project-card fade-in">
+          <div><span class="project-area">HCI · IPM</span></div>
+          <div class="project-title">Human-Computer Interaction — p5.js App</div>
+          <p class="project-desc">Interactive web application built with p5.js and Firebase Realtime Database, following HCI design principles: user research, iterative prototyping, and usability evaluation. Includes PPI calibration for physical accuracy. Grade: 16.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="project-tag">JavaScript</span><span class="project-tag">p5.js</span>
+              <span class="project-tag">Firebase</span><span class="project-tag">UX Research</span>
+            </div>
+            <span class="project-link-badge">↗ GitHub</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://github.com/NecaRibeiro/ist-ams" target="_blank" rel="noopener" class="project-link-wrap" data-category="other">
+        <div class="project-card fade-in">
+          <div><span class="project-area">Modelling · AMS</span></div>
+          <div class="project-title">Systems Analysis &amp; Modelling</div>
+          <p class="project-desc">Formal modelling and quantitative analysis of a complex system across two deliverables: causal loop diagrams, stock-and-flow modelling, simulation, and sensitivity analysis.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="project-tag">System Dynamics</span><span class="project-tag">Simulation</span>
+              <span class="project-tag">Causal Loops</span>
+            </div>
+            <span class="project-link-badge">↗ GitHub</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://github.com/NecaRibeiro/ist-tvs" target="_blank" rel="noopener" class="project-link-wrap" data-category="other">
+        <div class="project-card fade-in">
+          <div><span class="project-area">Testing · TVS</span></div>
+          <div class="project-title">Software Testing &amp; Validation</div>
+          <p class="project-desc">Systematic testing methodologies: contract-based specification in YAML, concurrency testing with race condition detection on C data structures, symbolic execution path coverage, and code coverage analysis. Grade: 15.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="project-tag">C</span><span class="project-tag">Java</span>
+              <span class="project-tag">Symbolic Exec</span><span class="project-tag">Concurrency</span>
+            </div>
+            <span class="project-link-badge">↗ GitHub</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://github.com/NecaRibeiro/ist-data-science" target="_blank" rel="noopener" class="project-link-wrap" data-category="ai">
+        <div class="project-card fade-in">
+          <div><span class="project-area">AI · Data Science · MSc</span></div>
+          <div class="project-title">Data Science Project</div>
+          <p class="project-desc">End-to-end data science project: exploratory data analysis, feature engineering, supervised learning model comparison, cross-validation, and evaluation metrics. Grade: 12.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="project-tag">Python</span><span class="project-tag">scikit-learn</span>
+              <span class="project-tag">EDA</span><span class="project-tag">Feature Engineering</span>
+            </div>
+            <span class="project-link-badge">↗ GitHub</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://github.com/NecaRibeiro/ist-design-thinking" target="_blank" rel="noopener" class="project-link-wrap" data-category="other">
+        <div class="project-card fade-in">
+          <div><span class="project-area">Entrepreneurship · Minor · Design Thinking</span></div>
+          <div class="project-title">Innovation Management &amp; Design Thinking</div>
+          <p class="project-desc">Full Design Thinking sprint: user empathy research, problem definition, ideation, lo-fi and hi-fi prototyping, and user testing. Part of the Entrepreneurship Minor at IST. Grade: 18.</p>
+          <div class="project-footer">
+            <div class="project-tags">
+              <span class="project-tag">Design Thinking</span><span class="project-tag">User Research</span>
+              <span class="project-tag">Prototyping</span><span class="project-tag">Innovation</span>
+            </div>
+            <span class="project-link-badge">↗ GitHub</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- COURSEWORK WITHOUT FILES -->
+    <div class="projects-subhead fade-in">Other completed coursework — project files no longer available</div>
+    <div class="course-chips fade-in">
+      <span class="course-chip">Analysis &amp; Synthesis of Algorithms <span class="grade">· 11</span></span>
+      <span class="course-chip">Machine Learning <span class="grade">· 17</span></span>
+      <span class="course-chip">Computer Graphics <span class="grade">· 12</span></span>
+      <span class="course-chip">Computer Networks <span class="grade">· 13</span></span>
+      <span class="course-chip">Distributed Systems <span class="grade">· 11</span></span>
+      <span class="course-chip">Software Engineering <span class="grade">· 13</span></span>
+      <span class="course-chip">Compilers <span class="grade">· 10</span></span>
+      <span class="course-chip">Artificial Intelligence <span class="grade">· 12</span></span>
+      <span class="course-chip">Object-Oriented Programming <span class="grade">· 13</span></span>
+      <span class="course-chip">Computer Organization <span class="grade">· 16</span></span>
+      <span class="course-chip">Planning, Learning &amp; Intelligent Decision Making <span class="grade">· 18</span></span>
+      <span class="course-chip">Security &amp; Management of Information Systems <span class="grade">· 16</span></span>
+      <span class="course-chip">Software Security <span class="grade">· 16</span></span>
     </div>
   </div>
 </section>
@@ -1077,7 +1270,7 @@
 
   // Project filter
   const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.project-card');
+  const cards = document.querySelectorAll('#projectsGrid > [data-category]');
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
